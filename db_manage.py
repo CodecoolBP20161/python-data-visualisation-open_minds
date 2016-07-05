@@ -1,0 +1,32 @@
+import psycopg2
+
+
+class Dbmanage:
+    def __init__(self, name, user, password, host="localhost"):
+        self.name = name
+        self.user = user
+        self.password = password
+        self.host = host
+        self.conn = None
+
+    def connect(self):
+        try:
+            connect_str = """dbname={} user={} host={} password={}"""\
+                .format(self.name, self.user, self.host, self.password)
+            self.conn = psycopg2.connect(connect_str)
+            self.conn.autocommit = True
+        except Exception as e:
+            print("Uh oh, can't connect. Invalid dbname, user or password?")
+            print(e)
+
+    def runner(self, query):
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()
+
+# Here is the place wewr the object is created with data of your database
+obj = Dbmanage("dbname place", "user place", "password place")
+obj.connect()
+var = obj.runner("query place")
+
+print(var)
