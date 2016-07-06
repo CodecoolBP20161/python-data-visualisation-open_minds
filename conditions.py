@@ -1,7 +1,6 @@
 from db_manage import Dbmanage
 
 
-
 def currency_change(target_list, currency):
     changed_list = []
     if currency == "gbp":
@@ -16,5 +15,9 @@ def currency_change(target_list, currency):
     return changed_list
 
 
+def word_counter(target_list):
+    for element in target_list:
+        element.insert(1, len(element[0]))
+    return(target_list)
 
 
