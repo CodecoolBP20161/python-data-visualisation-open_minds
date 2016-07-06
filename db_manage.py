@@ -21,8 +21,12 @@ class Dbmanage:
             print(e)
 
     def runner(self, query):
+        new_list = []
         cursor = self.conn.cursor()
         cursor.execute(query)
-        return cursor.fetchall()
+        for element in cursor.fetchall():
+            element=list(element)
+            new_list.append(element)
+        return new_list
 
 
