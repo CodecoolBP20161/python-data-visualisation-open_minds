@@ -20,4 +20,15 @@ def word_counter(target_list):
         element.insert(1, len(element[0]))
     return(target_list)
 
+def manager(manager_list):
+    summa_status = []
+    for element in manager_list:
+        summa_status.append(element[1])
+    summa_status = sum(summa_status)
+    for element in manager_list:
+        element.insert(1, round(element[1]/summa_status, 3))
+        element.pop()
+    return manager_list
+
+
 
