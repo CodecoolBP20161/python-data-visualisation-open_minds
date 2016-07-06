@@ -15,6 +15,7 @@ class Dbmanage:
                 .format(self.name, self.user, self.host, self.password)
             self.conn = psycopg2.connect(connect_str)
             self.conn.autocommit = True
+            print("connected :D")
         except Exception as e:
             print("Uh oh, can't connect. Invalid dbname, user or password?")
             print(e)
@@ -24,9 +25,4 @@ class Dbmanage:
         cursor.execute(query)
         return cursor.fetchall()
 
-# Here is the place wewr the object is created with data of your database
-obj = Dbmanage("dbname place", "user place", "password place")
-obj.connect()
-var = obj.runner("query place")
 
-print(var)
