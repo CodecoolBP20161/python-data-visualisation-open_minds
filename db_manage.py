@@ -25,8 +25,6 @@ class Dbmanage:
         cursor = self.conn.cursor()
         cursor.execute(query)
         for element in cursor.fetchall():
-            element=list(element)
+            element = list(element)
             new_list.append(element)
         return new_list
-
-
