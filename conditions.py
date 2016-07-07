@@ -1,4 +1,30 @@
 from db_manage import Dbmanage
+from operator import itemgetter
+
+
+def value_sorter(target_list):
+    # Order descending the target list according to number (2nd value of the nested list).
+    target_list.sort(key=itemgetter(1), reverse=True)
+
+    # This gives divider number for the nested lists.
+    all_value = 0
+    for i in target_list:
+        all_value += i[1]
+    one_percent = all_value/100
+
+    # Unifies the length of nested lists.
+    del target_list[14:]
+
+    # Unifies the value (2nd member) of the nested lists.
+    for i in target_list:
+        divided_value = i[1]/one_percent
+        i.pop(1)
+        i.insert(1, round(divided_value))
+    return target_list
+
+
+def average_colour(target_list):
+    return value_sorter(target_list)
 
 
 def currency_change(target_list, currency):
@@ -12,13 +38,14 @@ def currency_change(target_list, currency):
     for element in target_list:
         element[1] = round(float(element[1])/div, 2)
         changed_list.append(element)
-    return changed_list
+    return value_sorter(changed_list)
 
 
 def word_counter(target_list):
     for element in target_list:
         element.insert(1, len(element[0]))
-    return(target_list)
+    return value_sorter(target_list)
+
 
 def manager(manager_list):
     summa_status = []
@@ -28,7 +55,8 @@ def manager(manager_list):
     for element in manager_list:
         element.insert(1, round(element[1]/summa_status, 3))
         element.pop()
-    return manager_list
+    return value_sorter(manager_list)
+
 
 def first_letter_counter(target_list):
     letter_amount = {}
@@ -44,4 +72,4 @@ def first_letter_counter(target_list):
 
     for element in letter_amount:
         final_list += [[element, letter_amount[element]]]
-    return final_list
+    return value_sorter(final_list)
