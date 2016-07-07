@@ -14,7 +14,7 @@ def value_sorter(target_list):
     one_percent = all_value/100
 
     # Unifies the length of nested lists.
-    del target_list[14:]
+    del target_list[60:]
 
     # Unifies the value (2nd member) of the nested lists.
     for i in target_list:
