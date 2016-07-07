@@ -1,5 +1,6 @@
 from db_manage import Dbmanage
 from operator import itemgetter
+import random
 
 
 def value_sorter(target_list):
@@ -23,8 +24,36 @@ def value_sorter(target_list):
     return target_list
 
 
-def average_colour(target_list):
-    return value_sorter(target_list)
+def three_hex_to_rgb(target_list):
+    six_digit_hex = ''
+    for element in target_list:
+        three_digit_hex = element[-1].lstrip('#')
+        for j in three_digit_hex:
+            six_digit_hex += j*2
+        rgb_code = tuple(int(six_digit_hex[i:i + 2], 16) for i in (0, 2, 4))
+        element.insert(-1, rgb_code)
+        element.pop(-1)
+        six_digit_hex = ''
+    return target_list
+
+
+def get_color(target_list):
+    color_list = ['#2bb', '#2a9', '#2ba', '#1c7', '#642', '#42b', '#64c', '#786', '#f9a', '#852', '#fd9', '#aee', '#679']
+    for element in target_list:
+        element.append(random.choice(color_list))
+
+    # R.I.P (Nice Try) :'(
+    # (We don't have enough time finish the average color and the converter.)
+    # for element in target_list:
+    #     color_list = obj.runner("SELECT main_color from project WHERE company_name = '"+element[0]+"'")
+    #     element.append(color_list)
+        # print(element[2])
+        # for i in element[2]:
+        #     if None in i:
+        #         i[0] = "#fff"
+    # print(target_list)
+
+    return target_list
 
 
 def currency_change(target_list, currency):
@@ -36,8 +65,11 @@ def currency_change(target_list, currency):
     elif currency == "eur":
         div = 1.0
     for element in target_list:
-        element[1] = round(float(element[1])/div, 2)
-        changed_list.append(element)
+        if element[2] is None:
+            del element
+        else:
+            element[1] = round(float(element[1])/div, 2)
+            changed_list.append(element)
     return value_sorter(changed_list)
 
 
