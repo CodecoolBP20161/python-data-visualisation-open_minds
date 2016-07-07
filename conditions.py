@@ -30,5 +30,18 @@ def manager(manager_list):
         element.pop()
     return manager_list
 
+def first_letter_counter(target_list):
+    letter_amount = {}
+    final_list = []
+    for element in target_list:
+        if element[0] is None:
+            pass
+        else:
+            if element[0][0] in letter_amount:
+                letter_amount[element[0][0]] += 1
+            else:
+                letter_amount[element[0][0]] = 1
 
-
+    for element in letter_amount:
+        final_list += [[element, letter_amount[element]]]
+    return final_list
