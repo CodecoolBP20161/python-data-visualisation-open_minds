@@ -14,7 +14,7 @@ obj.connect()
 
 number_project_list = obj.runner("""SELECT company_name, count(id) from project GROUP BY company_name""")
 x = get_color(number_project_list)
-first_list = value_sorter(three_hex_to_rgb(x))
+first_list = three_hex_to_rgb(x)
 
 
 # SECOND ------------
