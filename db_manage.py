@@ -9,6 +9,7 @@ class Dbmanage:
         self.host = host
         self.conn = None
 
+# This can connect the given database.
     def connect(self):
         try:
             connect_str = """dbname={} user={} host={} password={}"""\
@@ -17,9 +18,11 @@ class Dbmanage:
             self.conn.autocommit = True
             print("connected :D")
         except Exception as e:
+        except Exception as e:
             print("Uh oh, can't connect. Invalid dbname, user or password?")
             print(e)
 
+    # This can run the given query and give back a nested list.
     def runner(self, query):
         new_list = []
         cursor = self.conn.cursor()
