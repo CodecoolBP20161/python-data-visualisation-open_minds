@@ -6,7 +6,9 @@ from main import *
 class WordCloud(object):
 
     FONT = '/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf'
-    FONT_COLOR = ['#F2B701', '#E57D04', '#DC0030', '#B10058', '#7C378A', '#3465AA', '#09A275', '#85BC5F', '#39d', '#aab5f0']
+    FONT_COLOR = ['#F2B701', '#E57D04', '#DC0030', '#B10058', '#7C378A',
+                  '#3465AA', '#09A275', '#85BC5F', '#39d', '#aab5f0'
+                  ]
     FONT_SIZE = [25, 28, 30, 32, 34, 37, 40, 45, 50, 55]
 
     def __init__(self, width=600, height=600):
@@ -19,7 +21,7 @@ class WordCloud(object):
     def draw(self, words):
         self.words = words
         num = random.randint(0, 7)
-        image_file_path = 'cloud_image{}' + '.jpg'
+        image_file_path = 'cloud_image' + '.jpg'
         self.image_file_path = image_file_path
 
         index = 0
@@ -28,7 +30,8 @@ class WordCloud(object):
             if index == length - 1:
                 weight = 0
             else:
-                weight = self.rescale_weight(word['weight'], self.words[0]['weight'], self.words[-1]['weight'])
+                weight = self.rescale_weight(word['weight'], self.words[0]['weight'],
+                                             self.words[-1]['weight'])
             self.find_coordinates(index, word['text'], int(weight))
             index += 1
 
@@ -71,7 +74,10 @@ class WordCloud(object):
             x = self.width/2 - (width / 2.0) + (radius*math.cos(angle))
             y = self.height/2 + radius*math.sin(angle) - (height / 2.0)
 
-        self.wordlist.append({'text': text, 'fontsize': fontsize, 'x': x, 'y': y, 'w': width, 'h': height, 'color': self.FONT_COLOR[weight]})
+        self.wordlist.append({'text': text, 'fontsize': fontsize,
+                              'x': x, 'y': y, 'w': width, 'h': height,
+                              'color': self.FONT_COLOR[weight]
+                              })
 
     def _check_overlap(self, x, y, h, w):
         if not self.wordlist:
@@ -79,7 +85,8 @@ class WordCloud(object):
             return False
 
         for word in self.wordlist:
-            if not ((x+w < word['x']) or (word['x'] + word['w'] < x) or (y + h < word['y']) or (word['y'] + word['h'] < y)):
+            if not ((x+w < word['x']) or (word['x'] + word['w'] < x) or
+                    (y + h < word['y']) or (word['y'] + word['h'] < y)):
                 return True
 
         return False
@@ -87,14 +94,18 @@ class WordCloud(object):
     def save(self):
         for word in self.wordlist:
             if self._lies_inside(word):
-                self.image_draw.text((word['x'], word['y']), word['text'], font=ImageFont.truetype(self.FONT, word['fontsize']), fill=word['color'])
+                self.image_draw.text((word['x'], word['y']), word['text'],
+                                     font=ImageFont.truetype(self.FONT,
+                                     word['fontsize']), fill=word['color']
+                                     )
 
         self.image.save(self.image_file_path, "JPEG", quality=90)
         return self.image_file_path
 
     def _lies_inside(self, word):
 
-        if word['x'] >= 0 and word['x'] + word['w'] <= self.width and word['y'] >= 0 and word['y'] + word['h'] <= self.height:
+        if word['x'] >= 0 and word['x'] + word['w'] <= self.width and\
+         word['y'] >= 0 and word['y'] + word['h'] <= self.height:
             return True
 
         return False
