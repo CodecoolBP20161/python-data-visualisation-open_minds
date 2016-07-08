@@ -5,12 +5,14 @@ from main import *
 
 class WordCloud(object):
 
+    # We can change the fontsize, fontcolor and font here
     FONT = '/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf'
     FONT_COLOR = ['#F2B701', '#E57D04', '#DC0030', '#B10058', '#7C378A',
                   '#3465AA', '#09A275', '#85BC5F', '#39d', '#aab5f0'
                   ]
     FONT_SIZE = [25, 28, 30, 32, 34, 37, 40, 45, 50, 55]
 
+    # the width and the height are given here, as well as making a new picture
     def __init__(self, width=600, height=600):
         self.width = width
         self.height = height
@@ -18,6 +20,8 @@ class WordCloud(object):
         self.image = Image.new('RGBA', [width, height], "#123")
         self.image_draw = ImageDraw.Draw(self.image)
 
+    # sets the image_file_path to the current file_file_path (where the script is)
+    # gives a different name each time the script
     def draw(self, words):
         self.words = words
         num = random.randint(0, 7)
@@ -37,6 +41,8 @@ class WordCloud(object):
 
         return self.save()
 
+    # since we are using a list for font_size, we have to rescale
+    # text weight to 1-10
     def rescale_weight(self, n, maxinum, minimum):
         scale_min = 1
         scale_max = 10
@@ -48,6 +54,7 @@ class WordCloud(object):
 
         return weight
 
+    # finds a place for the text in a spiral, and checks if it overlaps with other texts
     def find_coordinates(self, index, text, weight):
         angle_step = 0.57
         radius_step = 8
@@ -79,6 +86,7 @@ class WordCloud(object):
                               'color': self.FONT_COLOR[weight]
                               })
 
+    # checks overlap, thats it, not much to say
     def _check_overlap(self, x, y, h, w):
         if not self.wordlist:
             self.wordlist = []
@@ -91,6 +99,7 @@ class WordCloud(object):
 
         return False
 
+    # saves the texts to the picture and then saves the picture to the current image_file_path
     def save(self):
         for word in self.wordlist:
             if self._lies_inside(word):
@@ -102,6 +111,7 @@ class WordCloud(object):
         self.image.save(self.image_file_path, "JPEG", quality=90)
         return self.image_file_path
 
+    # checks whether the texts are inside the picture area
     def _lies_inside(self, word):
 
         if word['x'] >= 0 and word['x'] + word['w'] <= self.width and\
@@ -112,6 +122,7 @@ class WordCloud(object):
 
 
 if __name__ == '__main__':
+    # creating dictionaries with text, and weight keywords and appending them to the words list
     t = WordCloud()
     words = []
     temp = {}
