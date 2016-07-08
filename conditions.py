@@ -1,6 +1,10 @@
-from db_manage import Dbmanage
 from operator import itemgetter
 import random
+
+"""
+GOOD EXAMPLE AT TARGET LIST: [[data(string), data(int), data(color code)], [...]]
+"""
+
 
 
 def value_sorter(target_list):
@@ -24,6 +28,8 @@ def value_sorter(target_list):
     return target_list
 
 
+# Convert a three digit hex code to rgb, based on our list format.
+# For example a good input: [[data(string), data(int), data(3 digit HEX code)], [...]]
 def three_hex_to_rgb(target_list):
     six_digit_hex = ''
     for element in target_list:
@@ -37,6 +43,9 @@ def three_hex_to_rgb(target_list):
     return target_list
 
 
+# Used by first list.
+# For now it's random, but we can write the script, what collect all HEX code about the company.
+# It's unnecessary now, but we didn't want to delete it.
 def get_color(target_list):
     color_list = ['#2bb', '#2a9', '#2ba', '#1c7', '#642', '#42b', '#64c', '#786', '#f9a', '#852', '#fd9', '#aee', '#679']
     for element in target_list:
@@ -56,6 +65,8 @@ def get_color(target_list):
     return value_sorter(target_list)
 
 
+# Used by second list.
+# This is bill of exchange, what can convert gbp or usd to eur.
 def currency_change(target_list, currency):
     changed_list = []
     if currency == "gbp":
@@ -73,12 +84,16 @@ def currency_change(target_list, currency):
     return value_sorter(changed_list)
 
 
+# Used by third list.
+# This can count the the first string in nested list.
 def word_counter(target_list):
     for element in target_list:
         element.insert(1, len(element[0]))
     return value_sorter(target_list)
 
 
+# Used by fourth list.
+# This can give the certain company's project sum status number.
 def manager(manager_list):
     summa_status = []
     for element in manager_list:
@@ -90,6 +105,8 @@ def manager(manager_list):
     return value_sorter(manager_list)
 
 
+# Used by fifth list.
+# This can count how many times occurs an initial of manager.
 def first_letter_counter(target_list):
     letter_amount = {}
     final_list = []
@@ -101,7 +118,6 @@ def first_letter_counter(target_list):
                 letter_amount[element[0][0]] += 1
             else:
                 letter_amount[element[0][0]] = 1
-
     for element in letter_amount:
         final_list += [[element, letter_amount[element]]]
     return value_sorter(final_list)
