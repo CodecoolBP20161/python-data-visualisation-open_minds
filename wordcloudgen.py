@@ -1,8 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
 import math
-import os
-import random
-import uuid
 from main import *
 
 
@@ -19,10 +16,10 @@ class WordCloud(object):
         self.image = Image.new('RGBA', [width, height], "#123")
         self.image_draw = ImageDraw.Draw(self.image)
 
-    def draw(self, words, count):
+    def draw(self, words):
         self.words = words
         num = random.randint(0, 7)
-        image_file_path = 'cloud_image{}'.format(count) + '.jpg'
+        image_file_path = 'cloud_image{}' + '.jpg'
         self.image_file_path = image_file_path
 
         index = 0
@@ -107,11 +104,10 @@ if __name__ == '__main__':
     t = WordCloud()
     words = []
     temp = {}
-    list_of_list = [first_list, second_list_one, second_list_two, second_list_three, third_list, fourth_list, fifth_list]
-    for i in range(0, 7):
-        for element in list_of_list[i]:
-            temp["text"] = element[0]
-            temp["weight"] = element[1]
-            words.append(dict(temp))
 
-        print(t.draw(words, i))
+    for element in first_list:
+        temp["text"] = element[0]
+        temp["weight"] = element[1]
+        words.append(dict(temp))
+
+    print(t.draw(words))

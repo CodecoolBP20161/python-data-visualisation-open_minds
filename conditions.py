@@ -53,7 +53,7 @@ def get_color(target_list):
         #         i[0] = "#fff"
     # print(target_list)
 
-    return target_list
+    return value_sorter(target_list)
 
 
 def currency_change(target_list, currency):
