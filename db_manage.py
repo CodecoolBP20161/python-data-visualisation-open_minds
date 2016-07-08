@@ -18,7 +18,6 @@ class Dbmanage:
             self.conn.autocommit = True
             print("connected :D")
         except Exception as e:
-        except Exception as e:
             print("Uh oh, can't connect. Invalid dbname, user or password?")
             print(e)
 
